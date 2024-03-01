@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <!--table search from Geeks for Geeks-->
+    <form action="/" method="get">
+        <header>
+            <title>Perform a real-time search on HTML table</title>
+            <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                }
+
+                h1 {
+                    color: green;
+                }
+
+                table {
+                    border-collapse: collapse;
+                    width: 50%;
+                    margin: 20px auto;
+                }
+
+                th,
+                td {
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                }
+            </style>
+            <div class="d-flex flex-row-reverse bd-highlight">
+                <nav aria-label="pagination">
+                    <ul class="pagination">
+                        <li class="page item active"><<a class="page link" href="{{url_for('index', page=current_page - 1 if current_page > 1 else 1)}}">Previous</a>></li>
+                            {% for page_num in visible_pages %}
+                            <li class="page item"><a class="page link" href="{{ url_for('index', page=page_num) }}">{{ page_num }}</a></li>
+                            {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        <li class="page item"><<a class="page link" href="{{url_for('index', page=current_page + 1 if current_page < total_pages else total_pages)}}">Next</a>></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <body>
+            <main class="container py-5 text-ceter">
+                <div class="mb-3">
+                    <b>Search the table for cards:
+                        <input id="card_search" type="text" placeholder="Search here"3>
+                    </b>
+                    <table class="table table-striped" id="collection">
+                        <thead>
+                            <tr>
+                                <th class="text-start">Card Name</th>
+                                <th class="text-end">Quantity</th>
+                                <th class="text-end">ID</th>
+                                <th class="text-end">Rarity</th>
+                                <th class="text-end">Set Symbol</th>
+                                <th class="text-end">Premium</th>
+                            </tr>
+                        </thead>
+                        <tbody id="collection">
+                            {% if selected_sym %}
+                                {% for card in sorted  %}
+                                    <tr>
+                                        <td class="text-start">{{ card.card_name }}</td>
+                                        <td class="text-end">{{ card.quantity}}</td>
+                                        <td class="text-end">{{ card.id}}</td>
+                                        <td class="text-end">{{ card.rarity}}</td>
+                                        <td class="text-end">{{ card.set_sym}}</td>
+                                        <td class="text-end">{{ card.premium}}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                {% for card in cards %}
+                                    <tr>
+                                        <td class="text-start">{{ card.card_name }}</td>
+                                        <td class="text-end">{{ card.quantity}}</td>
+                                        <td class="text-end">{{ card.id}}</td>
+                                        <td class="text-end">{{ card.rarity}}</td>
+                                        <td class="text-end">{{ card.set_sym}}</td>
+                                        <td class="text-end">{{ card.premium}}</td>
+                                    </tr>
+                                {% endfor%}
+                            {% endif%}
+                        </tbody>
+                    </table>
+                    <script>
+                        $(document).ready(function () {
+                            $("#card_search").on("keyup", function () {
+                                var value = $(this).val().toLowerCase();
+                                $("#collection tr").filter(function () {
+                                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                });
+                            });
+                        });
+                    </script>
+                </div>
+            </main>
+        </body>
+    </form>
+{% endblock %}
