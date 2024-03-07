@@ -1,6 +1,7 @@
 import os
 import math
 import csv
+import cs50
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
@@ -17,7 +18,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure CS50 Library to use SQLite database
-db = SQL("sqlite:///mtgocoll.db")
+db = SQL("sqlite:////workspaces/CS50-Project/project/mtgocoll.db")
 
 @app.after_request
 def after_request(response):
