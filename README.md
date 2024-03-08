@@ -67,4 +67,4 @@
   During development, I attempted to incorporate an API call to MTGJSON to export a price list that could be joined to the existing sqlite database file through a temp join and modify the index HTML to add a price column, however, I could not successfully code the api call and tokenization due to my limited development skills. 
 
 ###### Credits
-    This project was based off of the CS50 Finance Shell, utilizing the sessions package, the sqlite3 package and the helpers package, which was incorporated Bootstrap, 
+    This project was based off of the CS50 Finance Shell, utilizing the sessions package, the sqlite3 package and the helpers package, which was incorporated Bootstrap, flask.palletsproject, jace browning's memegen special characters, werkzeug's security package for password hashing, and geeks for geeks js query for the alphabetic search and styling.
